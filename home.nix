@@ -14,7 +14,7 @@
 	meslo-lgs-nf
 
 	iterm2
-	thefuck
+	# thefuck
       ];
 
       programs.tmux = {
