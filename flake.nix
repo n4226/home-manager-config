@@ -9,16 +9,20 @@
   };
 
   outputs = { self, nixpkgs, flake-utils, home-manager }:
+    let
+      sharedModule = ./home.nix;
+    in
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
       in {
-	homeManagerModules.default = ./home.nix;
-
+	homeManagerModules.default = sharedModule;
 	packages.default = pkgs.writeText "noop-home-config" ''
         This flake is only for home-manager modules.
         Nothing to build.
       '';
       }
-    );
+    ) // {
+      homeManagerModules.default = sharedModule;
+    };
 }
