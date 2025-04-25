@@ -1,14 +1,6 @@
-{ config, pkgs, username, homeDirectory, home-manager }:
-  let
-    macos_apps = import ./macos-apps-fix.nix { inherit (home-manager) lib; };
-  in {
+{ config, pkgs, ... }:
 
-  home-manager = {
-    useGlobalPkgs = true;   # reuse the system’s pkgs set
-    useUserPackages = true;
-
-    users."${username}" ={ pkgs, ... }: macos_apps // {
-      home.homeDirectory = homeDirectory;
+{
 
       # ← this is _mandatory_
       home.stateVersion = "24.11";   # choose the HM release you want
@@ -71,8 +63,5 @@
 	  ];
 	};
       };
-
-    };
-  };
 
 }

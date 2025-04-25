@@ -13,33 +13,7 @@
       let
         pkgs = import nixpkgs { inherit system; };
       in {
-	homeConfigurations = {
-        MBP_M1 = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [
-            ({ config, pkgs, ... }: {
-              _module.args = {
-                username = "michaelbaron";
-                homeDirectory = "/Users/michaelbaron";
-              };
-            })
-            ./home.nix
-          ];
-        };
-
-        # michael-linux = home-manager.lib.homeManagerConfiguration {
-        #   inherit pkgs;
-        #   modules = [
-        #     ({ config, pkgs, ... }: {
-        #       _module.args = {
-        #         username = "michael";
-        #         homeDirectory = "/home/michael";
-        #       };
-        #     })
-        #     ./home.nix
-        #   ];
-        # };
-      };
+	homeManagerModules.default = ./home.nix;
 
 	packages.default = pkgs.writeText "noop-home-config" ''
         This flake is only for home-manager modules.
