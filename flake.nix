@@ -11,7 +11,7 @@
 
   outputs = { self, nixpkgs, flake-utils, nixvim-flake, home-manager }:
     let
-      sharedModule = ./home.nix { inherit nixvim-flake; };
+      sharedModule = import ./home.nix { inherit nixvim-flake; };
     in
     flake-utils.lib.eachDefaultSystem (system:
       let
