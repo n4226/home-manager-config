@@ -2,30 +2,37 @@
 
 {
 
-      # ← this is _mandatory_
-      home.stateVersion = "24.11";   # choose the HM release you want
-      programs.zoxide.enable = true;
+  # ← this is _mandatory_
+  home.stateVersion = "24.11";   # choose the HM release you want
+  programs.zoxide.enable = true;
 
-      # want to put in mac_apps here 
+  # want to put in mac_apps here 
+
+  home.sessionVariables = {
+    EDITOR = "vim";
+  };
+
+  home.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    meslo-lgs-nf
+
+    iterm2 thefuck
+    nixvim-flake.packages.aarch64-darwin.default 
+    tree
+  ];
+
+  #write iterm2 config file
+  home.file.".config/iterm2/com.googlecode.iterm2.plist".source = ./dotfiles/iterm2/com.googlecode.iterm2.plist;
 
 
-      home.packages = with pkgs; [
-	nerd-fonts.jetbrains-mono
-	meslo-lgs-nf
-
-	iterm2
-	# thefuck
-	nixvim-flake.packages.aarch64-darwin.default 
-      ];
-
-      programs.tmux = {
-	enable = true;
-	clock24 = true;
-	historyLimit = 100000;
-	plugins = with pkgs.tmuxPlugins; [
-	  catppuccin
-	];
-	extraConfig = ''
+  programs.tmux = {
+    enable = true;
+    clock24 = true;
+    historyLimit = 100000;
+    plugins = with pkgs.tmuxPlugins; [
+      catppuccin
+    ];
+    extraConfig = ''
 		    # set-option -g status-position top
 		    # bind -n Super_L send-keys "A-j"
 		     \'\';
@@ -41,28 +48,28 @@
 		unbind -n M-k
 		bind -n M-j send-keys M-j
 		bind -n M-k send-keys M-k
-	'';
-      };
+    '';
+  };
 
 
-      programs.zsh = {
-	enable = true;
+  programs.zsh = {
+    enable = true;
 
-	plugins = [
-	  {
-	    name = "powerlevel10k-config";
-	    src = ./p10k-config;
-	    file = "p10k.zsh";
-	  }
-	];
-	#
-	zplug = {
-	  enable = true;
-	  plugins = [
-	    #{ name = "zsh-users/zsh-autosuggestions"; } # Simple plugin installation
-	    { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; } 
-	  ];
-	};
-      };
+    plugins = [
+      {
+	name = "powerlevel10k-config";
+	src = ./p10k-config;
+	file = "p10k.zsh";
+      }
+    ];
+    #
+    zplug = {
+      enable = true;
+      plugins = [
+	#{ name = "zsh-users/zsh-autosuggestions"; } # Simple plugin installation
+	{ name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; } 
+      ];
+    };
+  };
 
 }
