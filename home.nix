@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixvim-flake, ... }:
 
 {
 
@@ -15,6 +15,7 @@
 
 	iterm2
 	# thefuck
+	nixvim-flake.packages.aarch64-darwin.default 
       ];
 
       programs.tmux = {
