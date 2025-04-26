@@ -18,7 +18,8 @@
 	homeManagerModules.default = { config, pkgs, ... }:
       {
         _module.args.nixvim-flake = nixvim-flake;
-      } // (import ./home.nix);
+	imports = [./home.nix];
+      };
 	packages.default = pkgs.writeText "noop-home-config" ''
         This flake is only for home-manager modules.
         Nothing to build.
