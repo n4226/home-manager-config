@@ -15,7 +15,10 @@
         pkgs = import nixpkgs { inherit system; };
 	sharedModule = import ./home.nix { inherit pkgs nixvim-flake; };
       in {
-	homeManagerModules.default = sharedModule;
+	homeManagerModules.default = { config, pkgs, ... }:
+      {
+        _module.args.nixvim-flake = nixvim-flake;
+      } // sharedModule;
 	packages.default = pkgs.writeText "noop-home-config" ''
         This flake is only for home-manager modules.
         Nothing to build.
