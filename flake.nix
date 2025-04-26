@@ -10,12 +10,10 @@
   };
 
   outputs = { self, nixpkgs, flake-utils, nixvim-flake, home-manager }:
-    let
-      sharedModule = import ./home.nix { inherit nixvim-flake; };
-    in
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
+	sharedModule = import ./home.nix { inherit pkgs nixvim-flake; };
       in {
 	homeManagerModules.default = sharedModule;
 	packages.default = pkgs.writeText "noop-home-config" ''
@@ -23,7 +21,5 @@
         Nothing to build.
       '';
       }
-    ) // {
-      homeManagerModules.default = sharedModule;
-    };
+    );
 }
