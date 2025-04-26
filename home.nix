@@ -16,13 +16,11 @@
     nerd-fonts.jetbrains-mono
     meslo-lgs-nf
 
-    iterm2 thefuck
+    iterm2
+    thefuck
     nixvim-flake.packages.aarch64-darwin.default 
     tree
   ];
-
-  programs.home-manager.enable = true;
-  programs.home-manager.path = "$HOME/.config/nix-repos/home-manager-config";
 
   #write iterm2 config file
   home.file.".config/iterm2/com.googlecode.iterm2.plist".source = ./dotfiles/iterm2/com.googlecode.iterm2.plist;

@@ -13,17 +13,15 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
-	# sharedModule = import ./home.nix { inherit pkgs nixvim-flake; };
-      in {
-	homeManagerModules.default = { config, pkgs, ... }:
+	sharedModule = { config, pkgs, ... }:
       {
         _module.args.nixvim-flake = nixvim-flake;
 	imports = [./home.nix];
       };
-	packages.default = pkgs.writeText "noop-home-config" ''
-        This flake is only for home-manager modules.
-        Nothing to build.
-      '';
+
+      in {
+	homeManagerModules.default = sharedModule;
+	homeModule = sharedModule;
       }
     );
 }
