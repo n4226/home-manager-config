@@ -23,16 +23,26 @@
 	  _module.args.nixvim-flake = nixvim-flake;
 	  imports = [./home.nix];
 	};
+      linPkgs = import nixpkgs { system = "aarch64-linux"; };
     in {
       homeManagerModules = flake-utils.lib.eachDefaultSystem (system:
 	let
 	  pkgs = import nixpkgs { inherit system; };
-
 	in {
 	  homeManagerModules.default = sharedModule;
 	  homeModule = sharedModule;
 	}
       );
+
+      homeConfigurations."parallels" = home-manager.lib.homeManagerConfiguration {
+	pkgs = linPkgs;
+	modules = [sharedModule];
+	extraSpecialArgs = {
+	  username = "parallels";
+	  homeDirectory = "/home/parallels"; # or whatever you want
+	  system = "aarch64-linux";
+	};
+      };
 
       darwinConfigurations = {
 	"MBP_M1" = nix-darwin.lib.darwinSystem {

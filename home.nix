@@ -1,6 +1,9 @@
-{ config, pkgs, nixvim-flake, system, ... }:
+{ config, pkgs, nixvim-flake, system, homeDirectory, username, ... }:
 
 {
+
+  home.username = username;
+  home.homeDirectory = homeDirectory;
 
   # ← this is _mandatory_
   home.stateVersion = "24.11";   # choose the HM release you want
@@ -17,7 +20,6 @@
     nerd-fonts.jetbrains-mono
     meslo-lgs-nf
 
-    iterm2
     thefuck
     nixvim-flake.packages.${system}.default 
     tree
@@ -25,7 +27,11 @@
     # for nixvim obsidan
     ripgrep
     nixfmt
-  ];
+  ] 
+    # macos only packages
+    ++ (if pkgs.stdenv.isDarwin then [ 
+      iterm2
+    ] else []);
 
   #write iterm2 config file
   home.file.".config/iterm2/com.googlecode.iterm2.plist".source = ./dotfiles/iterm2/com.googlecode.iterm2.plist;
