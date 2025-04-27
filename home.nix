@@ -5,6 +5,7 @@
   # ← this is _mandatory_
   home.stateVersion = "24.11";   # choose the HM release you want
   programs.zoxide.enable = true;
+  programs.home-manager.enable = true;
 
   # want to put in mac_apps here 
 
@@ -21,6 +22,9 @@
     nixvim-flake.packages.aarch64-darwin.default 
     tree
     neofetch
+    # for nixvim obsidan
+    ripgrep
+    nixfmt
   ];
 
   #write iterm2 config file
