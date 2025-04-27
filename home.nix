@@ -1,4 +1,4 @@
-{ config, pkgs, nixvim-flake, ... }:
+{ config, pkgs, nixvim-flake, system, ... }:
 
 {
 
@@ -19,7 +19,7 @@
 
     iterm2
     thefuck
-    nixvim-flake.packages.aarch64-darwin.default 
+    nixvim-flake.packages.${system}.default 
     tree
     neofetch
     # for nixvim obsidan

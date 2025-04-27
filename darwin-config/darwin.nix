@@ -30,6 +30,7 @@ in
 	  _module.args = {
 	    username = "${username}";
 	    homeDirectory = "/Users/${username}";
+	    system = "aarch64-darwin";
 	  };
 	})
 	my-home-module
