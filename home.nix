@@ -19,6 +19,7 @@
   home.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     meslo-lgs-nf
+    nerd-fonts.hack
 
     thefuck
     nixvim-flake.packages.${system}.default 
@@ -31,7 +32,11 @@
     # macos only packages
     ++ (if pkgs.stdenv.isDarwin then [ 
       iterm2
-    ] else []);
+    ] else 
+      # linux only packages
+      [
+
+      ]);
 
   #write iterm2 config file
   home.file.".config/iterm2/com.googlecode.iterm2.plist".source = ./dotfiles/iterm2/com.googlecode.iterm2.plist;
