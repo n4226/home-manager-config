@@ -30,9 +30,10 @@
       ffmpeg-full
     ]
     # macos only packages
-    ++ (if pkgs.stdenv.isDarwin then
-      [ iterm2 ]
-    else
+    ++ (if pkgs.stdenv.isDarwin then [
+      iterm2
+      colima
+    ] else
     # linux only packages
       [
 
