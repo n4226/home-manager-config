@@ -59,8 +59,26 @@
           };
         };
 
+        "MBP_M3" = nix-darwin.lib.darwinSystem {
+          system = hostPlatform;
+          modules = [
+            ./darwin-config/darwin.nix
+            home-manager.darwinModules.home-manager
+          ];
+          specialArgs = {
+            inherit home-manager;
+            my-home-module = sharedModule;
+            self-flake = self;
+            username = "mbaron";
+            system = hostPlatform;
+          };
+        };
+
         "MacBook-Pro-2886" =
           self.darwinConfigurations."MBP_M1"; # reuse config if you want
+
+        "Michaels-Work-MacBook-Pro" =
+          self.darwinConfigurations."MBP_M3"; # reuse config if you want
       };
 
       darwinPackages = self.darwinConfigurations."MBP_M1".pkgs;
